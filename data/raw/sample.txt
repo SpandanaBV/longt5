@@ -1,0 +1,9 @@
+Retrieval-Augmented Generation (RAG) combines information retrieval with text generation. It allows language models to access external knowledge sources to improve factuality and grounding. By retrieving relevant passages at inference time, RAG reduces hallucinations and enables up-to-date knowledge usage without retraining the base model.
+
+RAG systems typically consist of two components: a retriever and a generator. The retriever indexes a corpus and returns the most relevant documents for a given query, while the generator conditions on both the query and retrieved context to produce an answer. Popular retrievers include dense vector methods with FAISS or Chroma, while generators are often transformers like T5, BART, or GPT variants.
+
+Chunking long documents is crucial for retrieval quality. Fixed-size overlapping chunks help preserve context across boundaries and reduce information loss. Good chunking choices balance chunk length, overlap, and tokenization specifics of the target model. Longer contexts like those supported by Long-T5 enable larger chunks, improving global coherence.
+
+Summarization can be used as a compression step to produce RAG-ready content that retains key facts while reducing length. Abstractive summarizers like Long-T5 can transform noisy web text into concise, structured passages. This improves storage efficiency and can make retrieval more precise by removing redundancy.
+
+When evaluating such a pipeline, measure compression ratio (summary vs. original length) and perform manual coverage checks to ensure no critical information is dropped. Optionally, compute automatic metrics (ROUGE) and compare multiple models (e.g., PEGASUS, BART). Integrating a vector store (FAISS/Chroma) is a natural next step for end-to-end RAG.
